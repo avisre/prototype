@@ -1,0 +1,64 @@
+<!-- views/login.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Set the character encoding for the document -->
+    <meta charset="UTF-8">
+
+    <!-- Define the viewport settings for responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Set the favicon for the website -->
+  <link rel="icon" type="image/svg+xml" href="/logo.png">
+
+    <!-- Link to an external stylesheet for styling specific to this page -->
+    <link rel="stylesheet" href="login.css">
+
+    <!-- Set the title of the login page -->
+    <title>Login</title>
+</head>
+
+<body>
+    <!-- Start of the webpage body -->
+    <header>
+        <!-- Header section containing the logo -->
+        <img src="/logo.png" alt="Logo">
+
+    </header>
+   
+    <section>
+        <!-- Section for the login form -->
+
+        <!-- Heading for the login section -->
+        <h1>Login</h1>
+
+        <!-- Form for user login, sending data to /login endpoint using the POST method -->
+        <form action="/login" method="post">
+            <div>
+                <!-- Label and input field for username -->
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" autocomplete="given-name" required>
+
+                <!-- Label and input field for password -->
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" required>
+            
+
+                <!-- Login button -->
+                <div class="btn">
+                    <button type="submit">Login</button>
+                </div>
+                 <div>
+                   <p> Login as <button><a href="https://digital-metrics-g.onrender.com/">Guest</a></button></p>
+                   <p> Login as <button><a href="https://dashboard-3-3kui.onrender.com/">Admin</a></button></p>
+                 </div>
+            </div>
+        </form>
+
+        <!-- Link to register page for users who don't have an account -->
+        <p>Don't have an account? <a href="/register">Register</a></p>
+    </section>
+</body>
+
+</html>

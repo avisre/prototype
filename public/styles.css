@@ -1,0 +1,115 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    margin: 0;
+}
+
+
+img {
+    width: 29vh;
+    height: 26vh;  
+  /* Set the height of images to 13% of the viewport height */
+  border-radius: 10px;
+  /* Add rounded corners to images */
+}
+
+
+header {
+  
+    width: 100%;
+    padding: 20px;
+    background-color: black;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 43%;
+}
+header h1 {
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+}
+
+.navbar a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+}
+
+form {
+    margin: 20px 0;
+}
+
+input[type="file"] {
+    border: 2px solid purple;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+}
+
+button {
+    border: none;
+    padding: 12px 24px;
+    background-color: purple;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3b0a5c;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid purple;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #3b0a5c;
+    color: white;
+}
+
+footer {
+    width: 100%;
+    background-color: black;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    margin-top: 5px;
+}
+
+footer p {
+    margin: 0;
+}
+.hidden{
+    display: none;
+}

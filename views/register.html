@@ -1,0 +1,60 @@
+<!-- views/register.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Set the character encoding for the document -->
+    <meta charset="UTF-8">
+
+    <!-- Define the viewport settings for responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Set the favicon for the website -->
+     <link rel="icon" type="image/svg+xml" href="/logo.png">
+    <!-- Preconnect to external font resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Link to an external font family from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+    <!-- Link to an external stylesheet for styling specific to this page (assuming it's similar to the login page) -->
+    <link rel="stylesheet" href="login.css">
+
+    <!-- Set the title of the registration page -->
+    <title>Register</title>
+</head>
+
+<body>
+    <header>
+        <!-- Header section containing the logo -->
+        <img src="/logo.png" alt="Logo">
+    </header>
+    <section>
+        <!-- Section for user registration -->
+
+        <!-- Heading for the registration section -->
+        <h1>Register</h1>
+
+        <!-- Form for user registration, sending data to /register endpoint using the POST method -->
+        <form action="/register" method="post">
+            <!-- Label and input field for username -->
+            <label for="username">Username: </label>
+            <input type="text" name="username" required>
+
+            <!-- Label and input field for password -->
+            <label for="password">Password: </label>
+            <input type="password" name="password" required>
+
+            <!-- Registration button -->
+            <div class="btn">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+
+        <!-- Link to the login page for users who want to go back to login -->
+        <p>Go back <a href="/login">Login</a></p>
+    </section>
+</body>
+
+</html>

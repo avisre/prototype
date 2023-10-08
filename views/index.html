@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+
+  <link rel="icon" type="image/svg+xml" href="/logo.png">
+  <title>Excel Data Viewer</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+
+<body onload="fetchData()">
+  <header>
+    <nav>
+<div class="header">
+  <img src="/logo.png" alt="Logo">
+      <div class="navbar">
+          <a href="/logout">Logout</a>
+      </div>
+    </div>
+</nav>
+  </header>
+
+  <div id="loadingFeedback" class="hidden">
+    <p>Loading...</p>
+  </div>
+
+  <div id="downloadFeedback" class="hidden">
+    <p>File Downloaded!</p>
+  </div>
+
+  <form id="uploadForm" action="/upload">
+    <label for="fileInput">Upload Excel Sheet:</label>
+    <input type="file" id="fileInput" name="file">
+    <button type="submit" >Upload</button>
+  </form>
+
+ 
+
+  <table id="dataTable">
+    <!-- Table will be populated dynamically -->
+  </table>
+<footer>
+  <div class="footer">
+    <p>&copy; 2023 Digital Metrics. All rights reserved.</p>
+</div>
+</footer>
+ 
+  
+</body>
+
+</html>

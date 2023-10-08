@@ -1,0 +1,176 @@
+body {
+    width: 100vw;
+    /* Set the width of the body to 100% of the viewport width */
+    height: 100vh;
+    /* Set the height of the body to 100% of the viewport height */
+    background-color: black;
+    /* Set the background color of the body to black */
+    display: flex;
+    /* Use flexbox for layout */
+    flex-direction: column;
+    /* Arrange child elements vertically */
+    align-items: center;
+    /* Center child elements horizontally */
+
+    font-family: 'Roboto', sans-serif;
+    /* Set the font family for text content */
+    
+    /* Prevent background image from repeating */
+    color: white;
+    /* Set the text color to white */
+}
+
+
+header {
+    display: flex;
+    /* Use flexbox for layout within the header */
+    flex-direction: column;
+    /* Arrange child elements vertically */
+    justify-content: flex-start;
+    /* Align child elements at the top of the header */
+    align-items: center;
+    /* Center child elements horizontally */
+    padding: 20px 0;
+    /* Add padding to the header (20px top and bottom, 0px left and right) */
+    margin-bottom: 20px;
+    /* Add margin at the bottom of the header */
+}
+
+
+
+img {
+      width: 27vh;
+      height: 26vh;  
+    /* Set the height of images to 13% of the viewport height */
+    border-radius: 10px;
+    /* Add rounded corners to images */
+}
+
+section {
+    width: 80%;
+    /* Set the width of the section to 80% of its container */
+    max-width: 400px;
+    /* Set a maximum width for the section (adjust as needed) */
+    display: flex;
+    /* Use flexbox for layout within the section */
+    flex-direction: column;
+    /* Arrange child elements vertically */
+    align-items: center;
+    /* Center child elements horizontally */
+    border: 3px solid white;
+    /* Add a white border with a 3px width */
+    border-radius: 6px;
+    /* Add rounded corners to the section */
+    backdrop-filter: blur(10px);
+    /* Apply a blur filter to create a frosted glass effect */
+    padding: 20px;
+    /* Add padding to the section */
+}
+
+form {
+    width: 100%;
+    /* Set the width of the form to 100% */
+}
+
+label {
+    display: block;
+    /* Display labels as blocks */
+    margin-bottom: 5px;
+    /* Add margin at the bottom of labels */
+    color: white;
+    /* Set the text color of labels to white */
+}
+
+input { 
+    width: 90%;
+    /* Set the width of input fields to 90% */
+    padding: 8px;
+    /* Add padding to input fields */
+    margin-bottom: 10px;
+    /* Add margin at the bottom of input fields */
+    border: 1px solid white;
+    /* Add a white border with a 1px width to input fields */
+    border-radius: 4px;
+    /* Add rounded corners to input fields */
+    background-color: transparent;
+    /* Set the background of input fields to transparent */
+    color: white;
+    /* Set the text color of input fields to white */
+}
+
+input:focus {
+    background-color: white;
+    /* Change the background color of input fields when focused */
+    color: black;
+    /* Change the text color of input fields when focused */
+}
+
+button {
+    margin: 10px 0;
+    /* Add margin (10px top and bottom, 0px left and right) to buttons */
+    font-family: 'Roboto', sans-serif;
+    /* Set the font family for buttons */
+    border: 3px solid white;
+    /* Add a white border with a 3px width to buttons */
+    padding: 5px 15px;
+    /* Add padding to buttons (5px top and bottom, 15px left and right) */
+    width: inherit;
+    /* Set the width of buttons to inherit from their container */
+
+    background-color: transparent;
+    /* Set the background color of buttons to transparent */
+    color: white;
+    /* Set the text color of buttons to white */
+    cursor: pointer;
+    /* Change the cursor to a pointer on hover */
+}
+
+
+.btn {
+    text-align: center;
+    /* Center align text within elements with the class 'btn' */
+}
+
+
+img:hover,
+section:hover,
+button:hover {
+    border-radius: 20px;
+    /* Add rounded corners on hover */
+    box-shadow: 1px 1px 9px black;
+    /* Add a yellow box shadow on hover */
+    transition: 600ms;
+    /* Apply a 600ms transition effect on hover */
+    cursor: pointer;
+    /* Change the cursor to a pointer on hover */
+    border-color: white;
+    /* Change the border color to white on hover */
+}
+
+a { text-decoration: none; color:white; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    img {
+        width: 20vw;
+        /* Adjust image width for smaller screens */
+        height: 5vh;
+        /* Adjust image height for smaller screens */
+        border-radius: 10px;
+        /* Add rounded corners */
+    }
+
+    section {
+        width: 90%;
+        /* Adjust section width for smaller screens */
+    }
+}
