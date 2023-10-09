@@ -98,32 +98,50 @@ function renderData(data) {
             iLabIDCell.textContent = iLabID;
             dataRow.appendChild(iLabIDCell);
 
+
             const checkboxCell = document.createElement('td');
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.checked = rowData.clicked;
-            checkbox.addEventListener('change', function() {
-                const isChecked = this.checked;
-                fetch(`/update/${rowData._id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ clicked: isChecked }),
-                })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Data updated successfully');
-                    } else {
-                        console.error('Failed to update data');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error updating data:', error);
-                });
-            });
-            checkboxCell.appendChild(checkbox);
-            dataRow.appendChild(checkboxCell);
+const checkbox = document.createElement('input');
+checkbox.type = 'checkbox';
+checkbox.checked = rowData.clicked;
+
+checkbox.addEventListener('change', function() {
+    const isChecked = this.checked;
+    fetch(`/update/${rowData._id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ clicked: isChecked }),
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Data updated successfully');
+
+            // Toggle color based on checkbox state
+            if (isChecked) {
+                checkboxCell.style.backgroundColor = 'green';
+            } else {
+                checkboxCell.style.backgroundColor = 'red';
+            }
+        } else {
+            console.error('Failed to update data');
+        }
+    })
+    .catch(error => {
+        console.error('Error updating data:', error);
+    });
+});
+
+// Set initial background color based on checkbox state
+if (rowData.clicked) {
+    checkboxCell.style.backgroundColor = 'green';
+} else {
+    checkboxCell.style.backgroundColor = 'red';
+}
+
+checkboxCell.appendChild(checkbox);
+dataRow.appendChild(checkboxCell);
+
 
             const fullNameCell = document.createElement('td');
             fullNameCell.textContent = fullName;
@@ -148,31 +166,37 @@ function renderData(data) {
 
             const actionsCell = document.createElement('td');
             actionsCell.classList.add('actionsCell'); // Adding class for Actions cell
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete';
-            deleteButton.classList.add('deleteBtn'); // Adding class for Delete button
-            deleteButton.setAttribute('data-id', rowData._id);
-            deleteButton.addEventListener('click', function() {
-                const dataId = this.getAttribute('data-id');
-                if (confirm('Are you sure you want to delete this record?')) {
-                    fetch(`/delete/${dataId}`, {
-                        method: 'DELETE',
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('Data deleted successfully');
-                            fetchData();
-                        } else {
-                            console.error('Failed to delete data');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error deleting data:', error);
-                    });
-                }
-            });
-            actionsCell.appendChild(deleteButton);
-            dataRow.appendChild(actionsCell);
+
+           
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.classList.add('deleteBtn'); // Adding class for Delete button
+      deleteButton.setAttribute('data-id', rowData._id);
+
+      deleteButton.addEventListener('click', function() {
+        const dataId = this.getAttribute('data-id');
+
+        if (confirm('Are you sure you want to delete this record?')) {
+          fetch(`/delete/${dataId}`, {
+            method: 'DELETE',
+          })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Data deleted successfully');
+                    // Remove the row from the table
+                    dataRow.remove();
+                  } else {
+                    console.error('Failed to delete data');
+                  }
+                })
+                .catch(error => {
+                  console.error('Error deleting data:', error);
+                });
+            }
+          });
+    
+          actionsCell.appendChild(deleteButton);
+          dataRow.appendChild(actionsCell);
             sequenceNumber++;
         });
     });
