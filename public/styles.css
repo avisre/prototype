@@ -113,3 +113,23 @@ footer p {
 .hidden{
     display: none;
 }
+
+
+
+.checkbox-cell {
+    text-align: center;
+}
+
+.checkbox {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid red; /* Default color is red */
+}
+
+.checkbox.checked {
+    background-color: green; /* Color changes to green when checked */
+    border-color: green;
+}
