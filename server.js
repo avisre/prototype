@@ -32,6 +32,7 @@ const User = mongoose.model('User', {
 const ExcelData = mongoose.model('ExcelData', {
   username: String,
   password: String,
+  projectId:String,
   customerName: String,
   speciesName: String,
   sequencingID: String,
@@ -134,8 +135,36 @@ app.get('/login', (req, res) => {
   res.redirect('/');
 });
 
+let totalEntries = 0;
 
-app.post('/upload', upload.single('file'), (req, res) => {
+
+async function countTotalEntries() {
+  try {
+    // Find the maximum sequence number in the database
+    const maxSequenceNumber = await ExcelData.find({})
+      .sort({ projectId: -1 })
+      .limit(1)
+      .then(data => {
+        if (data.length > 0) {
+          return parseInt(data[0].projectId.split('_')[0]);
+        }
+        return 0;
+      });
+
+    totalEntries = maxSequenceNumber;
+  } catch (error) {
+    console.error('Error counting total entries:', error);
+  }
+}
+
+// Call the function to count total entries when the server starts
+countTotalEntries();
+
+
+
+
+app.post('/upload', upload.single('file'), async(req, res) => {
+  await countTotalEntries();
   try {
     const file = req.file;
 
@@ -155,44 +184,54 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const trimmedCustomerNames = customerNames.slice(0, minLength);
     const trimmedILabIDs = iLabIDs.slice(0, minLength);
 
-    const excelDataArray = trimmedCustomerNames.map((customerName, index) => {
-      const speciesName = sheet['I5']?.v || '';
-      const sequencingID = sheet['J1']?.v || '';
-      const kitType = sheet['F1']?.v || '';
-      const name = sheet['M1']?.v || '';
-      const dateCell = sheet['M2'];
-      const datee = (dateCell && dateCell.w) ? moment(dateCell.w).format('YYYY-MM-DD') : '';
-      const iLabID = trimmedILabIDs[index];
-      const runFolder = sheet2['B1']?.v || '';
-      const runType = sheet2['B2']?.v || '';
+   
+    let sequenceNumber = totalEntries >= 1000 ? totalEntries + 1 : 1000;// Initial sequence number
 
-      return new ExcelData({
-        customerName,
-        speciesName,
-        sequencingID,
-        kitType,
-        name,
-        datee,
-        iLabID,
-        runFolder,
-        runType,
-      });
+    const excelDataArray = trimmedCustomerNames.map((customerName, index) => {
+        const lastName = customerName.split(' ').pop().trim();
+        const projectId = `${sequenceNumber}_${sheet['J1']?.v}_${lastName}`;
+        sequenceNumber++;
+
+        const speciesName = sheet['I5']?.v || '';
+        const sequencingID = sheet['J1']?.v || '';
+        const kitType = sheet['F1']?.v || '';
+        const name = sheet['M1']?.v || '';
+        const dateCell = sheet['M2'];
+        const datee = (dateCell && dateCell.w) ? moment(dateCell.w).format('YYYY-MM-DD') : '';
+        const iLabID = trimmedILabIDs[index];
+        const runFolder = sheet2['B1']?.v || '';
+        const runType = sheet2['B2']?.v || '';
+
+        return new ExcelData({
+            projectId,
+            customerName,
+            speciesName,
+            sequencingID,
+            kitType,
+            name,
+            datee,
+            iLabID,
+            runFolder,
+            runType,
+        });
     });
 
     ExcelData.insertMany(excelDataArray)
-      .then(savedData => {
-        console.log('Excel data saved to MongoDB:', savedData);
-        res.redirect('/index');
-      })
-      .catch(error => {
-        console.error('Error saving Excel data:', error);
-        res.status(500).send('Internal Server Error');
-      });
-  } catch (error) {
+        .then(savedData => {
+            console.log('Excel data saved to MongoDB:', savedData);
+            res.redirect('/index');
+        })
+        .catch(error => {
+            console.error('Error saving Excel data:', error);
+            res.status(500).send('Internal Server Error');
+        });
+} catch (error) {
     console.error('Error processing uploaded file:', error);
     res.status(400).send('Bad Request: Invalid file format or structure.');
-  }
+}
 });
+
+
 
 
 app.get('/data', async (req, res) => {
