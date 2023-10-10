@@ -3,7 +3,7 @@ const fetchDataButton = document.getElementById('fetchDataButton');
 const dataTable = document.getElementById('dataTable');
 const loadingFeedback = document.getElementById('loadingFeedback');
 const downloadFeedback = document.getElementById('downloadFeedback');
-let rowCount = 1000; // Counter variable to track the number of rows created
+ // Counter variable to track the number of rows created
 
 uploadForm.addEventListener('submit', handleUpload);
 fetchDataButton.addEventListener('click', fetchData);
@@ -51,25 +51,12 @@ function fetchData() {
         });
 }
 
-function generateProjectIds(rowData, index,sequenceNumber) {
-    const customerNames = rowData.customerName.split(',').map(name => name.trim());
-    const iLabIDs = rowData.iLabID.split(',').map(id => id.trim());
-    const data = [];
-    customerNames.forEach((name, idx) => {
-        sequenceNumber++; // Increment sequenceNumber for every new row added
-        const lastName = name.split(' ').pop().trim();
-        const projectId = `${sequenceNumber}_${rowData.sequencingID}_${lastName}`; // Include rowCount in projectId
-        const iLabID = iLabIDs[idx] || '';
-        const fullName = name;
-        data.push({ projectId, iLabID, fullName });
-    });
-    return data;
-}
+
 
 function renderData(data) {
     dataTable.innerHTML = '';
 
-    const headers = ['Project:ID', 'ilabID', 'Status', 'Customer Name', 'Species Name', 'Sequencing ID', 'Kit Type', 'Name', 'Date', 'Run Folder', 'Run Type', 'Edit', 'Actions'];
+    const headers = ['Status', 'Project ID:',  'Customer Name', 'Species Name', 'Sequencing ID', 'Kit Type', 'Name','Date','iLabID', 'Run Folder', 'Run Type', 'Edit', 'Actions'];
 
     const headerRow = dataTable.insertRow();
 
@@ -79,24 +66,13 @@ function renderData(data) {
         headerRow.appendChild(headerCell);
     });
 
-    let sequenceNumber = rowCount;
+    
     data.forEach((rowData, index) => {
         
-        const projectIdsAndNames = generateProjectIds(rowData, index, sequenceNumber);
-
-
-        projectIdsAndNames.forEach(({ projectId, iLabID, fullName }) => {
-            const dataRow = dataTable.insertRow();
+       const dataRow = dataTable.insertRow();
             dataRow.dataset.id = rowData._id;
 
-            const projectIdCell = document.createElement('td');
-            projectIdCell.textContent = projectId;
-            dataRow.appendChild(projectIdCell);
-
-            
-            const iLabIDCell = document.createElement('td');
-            iLabIDCell.textContent = iLabID;
-            dataRow.appendChild(iLabIDCell);
+  
 
 
             const checkboxCell = document.createElement('td');
@@ -143,11 +119,11 @@ checkboxCell.appendChild(checkbox);
 dataRow.appendChild(checkboxCell);
 
 
-            const fullNameCell = document.createElement('td');
-            fullNameCell.textContent = fullName;
-            dataRow.appendChild(fullNameCell);
+            // const fullNameCell = document.createElement('td');
+            // fullNameCell.textContent = fullName;
+            // dataRow.appendChild(fullNameCell);
 
-            const dataCells = [rowData.speciesName, rowData.sequencingID, rowData.kitType, rowData.name, rowData.datee, rowData.runFolder, rowData.runType];
+            const dataCells = [rowData.projectId,rowData.customerName,rowData.speciesName, rowData.sequencingID, rowData.kitType, rowData.name, rowData.datee,rowData.iLabID, rowData.runFolder, rowData.runType];
             dataCells.forEach(cellText => {
                 const dataCell = document.createElement('td');
                 dataCell.textContent = cellText;
@@ -197,10 +173,10 @@ dataRow.appendChild(checkboxCell);
     
           actionsCell.appendChild(deleteButton);
           dataRow.appendChild(actionsCell);
-            sequenceNumber++;
+           
         });
-    });
-}
+    }
+
 
 
 function handleEditRow(row) {
@@ -224,7 +200,7 @@ function handleEditRow(row) {
     saveButton.addEventListener('click', function() {
         // Retrieve edited content from cells
         const editedData = {
-            projectId: row.cells[0].textContent,
+           
             ilabID: row.cells[1].textContent,
             status: row.cells[2].textContent,
             customerName: row.cells[3].textContent,
@@ -270,4 +246,4 @@ function handleEditRow(row) {
             editButton.disabled = false;
         });
     });
-}    
+}   
